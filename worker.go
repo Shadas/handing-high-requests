@@ -1,5 +1,9 @@
 package main
 
+import (
+// "log"
+)
+
 type Payload struct {
 	SleepTime int64 `json:"sleep_time"`
 }
@@ -11,7 +15,7 @@ type Job struct {
 var JobQueue chan Job
 
 type Worker struct {
-	WorkerPool chan chan Job
+	WorkerPool chan chan Job //该worker 所在的 pool
 	JobChannel chan Job
 	num        int
 	quit       chan bool
@@ -33,6 +37,8 @@ func (w Worker) Start() {
 
 			select {
 			case job := <-w.JobChannel:
+				// log.Println("queue length:", len(JobQueue))
+				// log.Println("queue cap:", cap(JobQueue))
 				Business(job.Payload, w.num)
 			case <-w.quit:
 				return

@@ -19,9 +19,11 @@ func (d *Dispatcher) Run() {
 		worker.Start()
 	}
 
-	go d.dispatch()
+	// go d.dispatch()
+	go d.newdispatch()
 }
 
+//warning jobqueue 没有起到缓冲的作用
 func (d *Dispatcher) dispatch() {
 	for {
 		select {
@@ -31,6 +33,16 @@ func (d *Dispatcher) dispatch() {
 
 				jobChannel <- job
 			}(job)
+		}
+	}
+}
+
+func (d *Dispatcher) newdispatch() {
+	for {
+		jobChannel := <-d.WorkerPool
+		select {
+		case job := <-JobQueue:
+			jobChannel <- job
 		}
 	}
 }

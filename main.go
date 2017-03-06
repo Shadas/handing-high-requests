@@ -8,8 +8,8 @@ import (
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	MaxWorker := 5
-	MaxQueue := 5
+	MaxWorker := 10
+	MaxQueue := 1000
 
 	dispatcher := NewDispatcher(MaxWorker)
 	dispatcher.Run()
@@ -19,6 +19,6 @@ func main() {
 	mux.HandleFunc("/aaa", BusinessHandler1)
 	mux.HandleFunc("/bbb", BusinessHandler2)
 
-	http.ListenAndServe("127.0.0.1:8099", mux)
+	http.ListenAndServe(":8099", mux)
 
 }
