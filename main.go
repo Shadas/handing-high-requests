@@ -8,7 +8,7 @@ import (
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	MaxWorker := 10
+	MaxWorker := 200
 	MaxQueue := 1000
 
 	dispatcher := NewDispatcher(MaxWorker)

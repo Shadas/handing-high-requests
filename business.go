@@ -10,9 +10,9 @@ import (
 
 func Business(payload Payload, wtag int) error {
 	sleep_time := payload.SleepTime
-	// log.Println("run on worker ", wtag, " ...")
+	log.Println("run on worker ", wtag, " ...")
 	time.Sleep(time.Duration(sleep_time) * time.Second)
-	// log.Println("run over...")
+	log.Println("run over...")
 	return nil
 }
 
